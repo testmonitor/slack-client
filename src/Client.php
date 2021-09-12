@@ -60,6 +60,7 @@ class Client
      * Create a new authorization URL for the given scope and state.
      *
      * @param string $state
+     *
      * @return string
      */
     public function authorizationUrl(string $state = '')
@@ -95,6 +96,7 @@ class Client
      *
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     *
      * @return \TestMonitor\Slack\AccessToken
      */
     public function refreshToken(): AccessToken
@@ -142,6 +144,7 @@ class Client
      *
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \TestMonitor\Slack\Exceptions\TokenExpiredException
+     *
      * @return \GuzzleHttp\Client
      */
     protected function client()
