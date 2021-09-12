@@ -60,7 +60,6 @@ class Client
      * Create a new authorization URL for the given scope and state.
      *
      * @param string $state
-     *
      * @return string
      */
     public function authorizationUrl(string $state = '')
