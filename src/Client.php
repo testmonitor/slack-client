@@ -60,7 +60,6 @@ class Client
      * Create a new authorization URL for the given scope and state.
      *
      * @param string $state
-     *
      * @return string
      */
     public function authorizationUrl(string $state = '')
@@ -77,6 +76,7 @@ class Client
      * @param string $code
      *
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     *
      * @return \TestMonitor\Slack\AccessToken
      */
     public function fetchToken(string $code)
@@ -94,6 +94,7 @@ class Client
      * Refresh the current access token.
      *
      * @throws \Exception
+     *
      * @return \TestMonitor\Slack\AccessToken
      */
     public function refreshToken(): AccessToken
@@ -126,6 +127,7 @@ class Client
      *
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \TestMonitor\Slack\Exceptions\TokenExpiredException
+     *
      * @return \GuzzleHttp\Client
      */
     protected function client()
@@ -168,6 +170,7 @@ class Client
      * @throws \TestMonitor\Slack\Exceptions\TokenExpiredException
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \TestMonitor\Slack\Exceptions\ValidationException
+     *
      * @return mixed
      */
     protected function post(string $uri, array $payload = [])
@@ -188,6 +191,7 @@ class Client
      * @throws \TestMonitor\Slack\Exceptions\TokenExpiredException
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \TestMonitor\Slack\Exceptions\ValidationException
+     *
      * @return mixed
      */
     protected function request($verb, $uri, array $payload = [])
@@ -214,6 +218,7 @@ class Client
      * @throws \TestMonitor\Slack\Exceptions\NotFoundException
      * @throws \TestMonitor\Slack\Exceptions\FailedActionException
      * @throws \Exception
+     *
      * @return void
      */
     protected function handleRequestError(ResponseInterface $response)
