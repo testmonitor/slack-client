@@ -35,8 +35,12 @@ class AccessToken
      * @param int $expiresIn
      * @param array $values
      */
-    public function __construct(string $accessToken = '', string $refreshToken = '', int $expiresIn = 0, array $values = [])
-    {
+    public function __construct(
+        string $accessToken = '',
+        string $refreshToken = '',
+        int $expiresIn = 0,
+        array $values = []
+    ) {
         $this->accessToken = $accessToken;
         $this->refreshToken = $refreshToken;
         $this->expiresIn = $expiresIn;
