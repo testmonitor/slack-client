@@ -39,14 +39,16 @@ class SlackProvider extends AbstractProvider
      * Verifies that all required options have been passed.
      *
      * @param  array $options
+     *
      * @throws InvalidArgumentException
+     *
      * @return void
      */
     private function assertRequiredOptions(array $options)
     {
         $missing = array_diff_key(array_flip($this->getRequiredOptions()), $options);
 
-        if (!empty($missing)) {
+        if (! empty($missing)) {
             throw new InvalidArgumentException(
                 'Required options not defined: ' . implode(', ', array_keys($missing))
             );
@@ -60,19 +62,18 @@ class SlackProvider extends AbstractProvider
      */
     public function getBaseAuthorizationUrl(): string
     {
-        return "https://slack.com/oauth/v2/authorize";
+        return 'https://slack.com/oauth/v2/authorize';
     }
 
     /**
      * Returns the base URL for requesting an access token.
      *
      * @param array $params
-     *
      * @return string
      */
     public function getBaseAccessTokenUrl(array $params): string
     {
-        return "https://slack.com/api/oauth.v2.access";
+        return 'https://slack.com/api/oauth.v2.access';
     }
 
     /**
@@ -81,6 +82,7 @@ class SlackProvider extends AbstractProvider
      * @param AccessToken $token
      *
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     *
      * @return string
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
@@ -95,12 +97,11 @@ class SlackProvider extends AbstractProvider
 
     /**
      * @param $token
-     *
      * @return string
      */
     public function getAuthorizedUserTestUrl($token): string
     {
-        return "https://slack.com/api/auth.test?token=" . $token;
+        return 'https://slack.com/api/auth.test?token=' . $token;
     }
 
     /**
@@ -108,7 +109,6 @@ class SlackProvider extends AbstractProvider
      *
      * @param ResponseInterface $response
      * @param array|string $data Parsed response data
-     *
      * @return void
      */
     protected function checkResponse(ResponseInterface $response, $data)
@@ -121,7 +121,6 @@ class SlackProvider extends AbstractProvider
      *
      * @param array $response
      * @param AccessToken $token
-     *
      * @return SlackResourceOwner
      */
     protected function createResourceOwner(array $response, AccessToken $token)
@@ -141,6 +140,7 @@ class SlackProvider extends AbstractProvider
      * @param AccessToken $token
      *
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     *
      * @return mixed
      */
     public function fetchAuthorizedUserDetails(AccessToken $token): mixed
@@ -150,7 +150,7 @@ class SlackProvider extends AbstractProvider
         $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
 
         // Keep compatibility with League\OAuth2\Client v1
-        if (!method_exists($this, 'getParsedResponse')) {
+        if (! method_exists($this, 'getParsedResponse')) {
             return $this->getResponse($request);
         }
 
@@ -161,6 +161,7 @@ class SlackProvider extends AbstractProvider
      * @param AccessToken $token
      *
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     *
      * @return SlackAuthorizedUser
      */
     public function getAuthorizedUser(AccessToken $token): SlackAuthorizedUser
@@ -172,7 +173,6 @@ class SlackProvider extends AbstractProvider
 
     /**
      * @param $response
-     *
      * @return SlackAuthorizedUser
      */
     protected function createAuthorizedUser($response): SlackAuthorizedUser

@@ -19,6 +19,7 @@ trait PostMessages
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \TestMonitor\Slack\Exceptions\ValidationException
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
      * @return bool
      */
     public function postMessage(Message $message)
