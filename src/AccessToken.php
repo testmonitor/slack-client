@@ -49,7 +49,6 @@ class AccessToken
 
     /**
      * @param \League\OAuth2\Client\Token\AccessToken $token
-     *
      * @return \TestMonitor\Slack\AccessToken
      */
     public static function fromSlack(AccessTokenInterface $token, $values = [])
@@ -89,6 +88,7 @@ class AccessToken
      * Returns the incoming webhook data.
      *
      * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
+     *
      * @return array
      */
     public function incomingWebhook()
@@ -104,6 +104,7 @@ class AccessToken
      * Returns the channel name the webhook is assigned to.
      *
      * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
+     *
      * @return string
      */
     public function channel()
@@ -115,6 +116,7 @@ class AccessToken
      * Returns the URL of the webhook.
      *
      * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
+     *
      * @return string
      */
     public function webhookUrl()
