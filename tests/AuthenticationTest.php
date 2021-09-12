@@ -11,8 +11,11 @@ use TestMonitor\Slack\Provider\SlackAuthorizedUser;
 use TestMonitor\Slack\Exceptions\TokenExpiredException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
 
-class OauthTest extends TestCase
+class AuthenticationTest extends TestCase
 {
+    /**
+     * @var \SlackPhp\BlockKit\Surfaces\Message|\SlackPhp\BlockKit\Surfaces\Surface
+     */
     protected $message;
 
     protected function setUp(): void
@@ -76,11 +79,11 @@ class OauthTest extends TestCase
     public function it_can_provide_an_authorization_url()
     {
         // Given
-        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], new AccessToken(), $dispatcher = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider'));
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], new AccessToken(), $provider = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider'));
 
         $options = ['state' => 'somestate', 'scope' => 'incoming-webhook'];
 
-        $dispatcher->shouldReceive('getAuthorizationUrl')->with($options)->andReturn('https://slack.authorization.url');
+        $provider->shouldReceive('getAuthorizationUrl')->with($options)->andReturn('https://slack.authorization.url');
 
         // When
         $url = $slack->authorizationUrl($options['state']);
@@ -93,7 +96,7 @@ class OauthTest extends TestCase
     public function it_can_fetch_a_token()
     {
         // Given
-        $dispatcher = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider');
+        $provider = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider');
 
         $token = Mockery::mock('\League\OAuth2\Client\Token\AccessToken');
 
@@ -102,9 +105,9 @@ class OauthTest extends TestCase
         $token->shouldReceive('getExpires')->once()->andReturn(time() + 3600);
         $token->shouldReceive('getValues')->once()->andReturn([]);
 
-        $dispatcher->shouldReceive('getAccessToken')->with('authorization_code', ['code' => '123'])->once()->andReturn($token);
+        $provider->shouldReceive('getAccessToken')->with('authorization_code', ['code' => '123'])->once()->andReturn($token);
 
-        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], new AccessToken(), $dispatcher);
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], new AccessToken(), $provider);
 
         // When
         $token = $slack->fetchToken('123');
@@ -122,7 +125,7 @@ class OauthTest extends TestCase
         // Given
         $oldToken = new AccessToken('12345', '567890', time() - 3600);
 
-        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $oldToken, $dispatcher = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider'));
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $oldToken, $provider = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider'));
 
         $token = Mockery::mock('\League\OAuth2\Client\Token\AccessToken');
 
@@ -131,7 +134,7 @@ class OauthTest extends TestCase
         $token->shouldReceive('getExpires')->once()->andReturn(time() + 3600);
         $token->shouldReceive('getValues')->once()->andReturn([]);
 
-        $dispatcher->shouldReceive('getAccessToken')->with('refresh_token', ['refresh_token' => '567890'])->once()->andReturn($token);
+        $provider->shouldReceive('getAccessToken')->with('refresh_token', ['refresh_token' => '567890'])->once()->andReturn($token);
 
         // When
         $token = $slack->refreshToken();
@@ -171,14 +174,14 @@ class OauthTest extends TestCase
     public function it_can_retrieve_the_details_of_the_current_authenticated_user()
     {
         // Given
-        $dispatcher = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider');
+        $provider = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider');
 
-        $dispatcher->shouldReceive('getAuthorizedUser')->once()->andReturn(new SlackAuthorizedUser([
+        $provider->shouldReceive('getAuthorizedUser')->once()->andReturn(new SlackAuthorizedUser([
             'user_id' => 1,
         ]));
 
         $token = new AccessToken('12345', '67890', time() + 60);
-        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $token, $dispatcher);
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $token, $provider);
 
         // When
         $result = $slack->authorizedUser();

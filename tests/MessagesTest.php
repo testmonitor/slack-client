@@ -7,10 +7,15 @@ use SlackPhp\BlockKit\Kit;
 use TestMonitor\Slack\Client;
 use PHPUnit\Framework\TestCase;
 use TestMonitor\Slack\AccessToken;
+use TestMonitor\Slack\Exceptions\NotFoundException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
+use TestMonitor\Slack\Exceptions\MissingWebhookException;
 
 class MessagesTest extends TestCase
 {
+    /**
+     * @var \TestMonitor\Slack\AccessToken
+     */
     protected $token;
 
     protected function setUp(): void
@@ -59,6 +64,41 @@ class MessagesTest extends TestCase
         $response->shouldReceive('getBody')->andReturn('');
 
         $this->expectException(UnauthorizedException::class);
+
+        $message = Kit::newMessage()->text('Hello');
+
+        // When
+        $slack->postMessage($message);
+    }
+
+    /** @test */
+    public function it_should_throw_a_not_found_exception_when_client_cannot_reach_slack_to_post_a_message()
+    {
+        // Given
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
+
+        $slack->setClient($service = Mockery::mock('\GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(404);
+
+        $this->expectException(NotFoundException::class);
+
+        $message = Kit::newMessage()->text('Hello');
+
+        // When
+        $slack->postMessage($message);
+    }
+
+    /** @test */
+    public function it_should_throw_a_missing_webhook_exception_when_client_didnt_receive_a_webhook_to_post_a_message()
+    {
+        // Given
+        $token = new AccessToken('12345', '123456', time() + 3600);
+
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $token);
+
+        $this->expectException(MissingWebhookException::class);
 
         $message = Kit::newMessage()->text('Hello');
 
