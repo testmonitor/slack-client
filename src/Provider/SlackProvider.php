@@ -39,8 +39,8 @@ class SlackProvider extends AbstractProvider
      * Verifies that all required options have been passed.
      *
      * @param  array $options
-     * @return void
      * @throws InvalidArgumentException
+     * @return void
      */
     private function assertRequiredOptions(array $options)
     {
