@@ -1,6 +1,6 @@
 <?php
 
-namespace TestMonitpr\Slack\Provider;
+namespace TestMonitor\Slack\Provider;
 
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 

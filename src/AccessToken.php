@@ -4,6 +4,7 @@ namespace TestMonitor\Slack;
 
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use TestMonitor\Slack\Exceptions\MissingWebhookException;
+use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
 
 class AccessToken
 {
@@ -137,5 +138,15 @@ class AccessToken
             'expires_in' => $this->expiresIn,
             'values' => $this->values,
         ];
+    }
+
+    /**
+     * Returns the token as a League token.
+     *
+     * @return \League\OAuth2\Client\Token\AccessToken
+     */
+    public function toNativeToken()
+    {
+        return new LeagueAccessToken($this->toArray());
     }
 }

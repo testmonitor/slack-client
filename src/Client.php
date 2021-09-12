@@ -93,8 +93,8 @@ class Client
     /**
      * Refresh the current access token.
      *
-     * @throws \Exception
-     *
+     * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
      * @return \TestMonitor\Slack\AccessToken
      */
     public function refreshToken(): AccessToken
@@ -123,11 +123,25 @@ class Client
     }
 
     /**
+     * Gets the details of the currently authenticated user.
+     *
+     * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
+     */
+    public function authorizedUser()
+    {
+        if (empty($this->token)) {
+            throw new UnauthorizedException();
+        }
+
+        return $this->provider->getAuthorizedUser($this->token->toNativeToken());
+    }
+
+    /**
      * Returns an Guzzle client instance.
      *
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
      * @throws \TestMonitor\Slack\Exceptions\TokenExpiredException
-     *
      * @return \GuzzleHttp\Client
      */
     protected function client()

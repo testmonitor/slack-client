@@ -5,11 +5,13 @@ namespace TestMonitor\Slack\Provider;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Client\Token\AccessToken;
-use TestMonitpr\Slack\Provider\SlackResourceOwner;
 use League\OAuth2\Client\Provider\AbstractProvider;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 
 class SlackProvider extends AbstractProvider
 {
+    use BearerAuthorizationTrait;
+
     /**
      * @param array $options
      * @param array $collaborators
@@ -96,12 +98,11 @@ class SlackProvider extends AbstractProvider
     }
 
     /**
-     * @param $token
      * @return string
      */
-    public function getAuthorizedUserTestUrl($token): string
+    public function getAuthorizedUserTestUrl(): string
     {
-        return 'https://slack.com/api/auth.test?token=' . $token;
+        return 'https://slack.com/api/auth.test';
     }
 
     /**
@@ -117,7 +118,7 @@ class SlackProvider extends AbstractProvider
     }
 
     /**
-     * Create new resources owner using the generated access token.
+     * Create new resource owner using the generated access token.
      *
      * @param array $response
      * @param AccessToken $token
@@ -145,7 +146,7 @@ class SlackProvider extends AbstractProvider
      */
     public function fetchAuthorizedUserDetails(AccessToken $token): mixed
     {
-        $url = $this->getAuthorizedUserTestUrl($token);
+        $url = $this->getAuthorizedUserTestUrl();
 
         $request = $this->getAuthenticatedRequest(self::METHOD_GET, $url, $token);
 
