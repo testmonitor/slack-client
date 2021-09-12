@@ -26,7 +26,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_should_post_a_message()
+    public function it_can_post_a_message()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
