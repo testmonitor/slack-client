@@ -7,8 +7,8 @@ use SlackPhp\BlockKit\Kit;
 use TestMonitor\Slack\Client;
 use PHPUnit\Framework\TestCase;
 use TestMonitor\Slack\AccessToken;
-use TestMonitor\Slack\Exceptions\FailedActionException;
 use TestMonitor\Slack\Exceptions\NotFoundException;
+use TestMonitor\Slack\Exceptions\FailedActionException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
 use TestMonitor\Slack\Exceptions\MissingWebhookException;
 
