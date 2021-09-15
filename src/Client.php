@@ -49,11 +49,7 @@ class Client
     ) {
         $this->token = $token;
 
-        $this->provider = $provider ?? new SlackProvider([
-            'clientId' => $credentials['clientId'],
-            'clientSecret' => $credentials['clientSecret'],
-            'redirectUri' => $credentials['redirectUri'],
-        ]);
+        $this->provider = $provider ?? new SlackProvider($credentials);
     }
 
     /**
