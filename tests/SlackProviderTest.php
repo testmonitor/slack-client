@@ -2,14 +2,8 @@
 
 namespace TestMonitor\Slack\Tests;
 
-use Mockery;
-use SlackPhp\BlockKit\Kit;
-use TestMonitor\Slack\Client;
 use PHPUnit\Framework\TestCase;
 use TestMonitor\Slack\AccessToken;
-use TestMonitor\Slack\Provider\SlackAuthorizedUser;
-use TestMonitor\Slack\Exceptions\TokenExpiredException;
-use TestMonitor\Slack\Exceptions\UnauthorizedException;
 
 class SlackProviderTest extends TestCase
 {
@@ -38,5 +32,4 @@ class SlackProviderTest extends TestCase
         // Then
         $this->assertEquals(['id' => 1], $team);
     }
-
 }
