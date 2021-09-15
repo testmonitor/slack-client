@@ -8,6 +8,7 @@ use TestMonitor\Slack\Client;
 use PHPUnit\Framework\TestCase;
 use TestMonitor\Slack\AccessToken;
 use TestMonitor\Slack\Exceptions\NotFoundException;
+use TestMonitor\Slack\Exceptions\ValidationException;
 use TestMonitor\Slack\Exceptions\FailedActionException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
 use TestMonitor\Slack\Exceptions\MissingWebhookException;
@@ -92,6 +93,26 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
+    public function it_should_throw_a_validation_exception_when_client_sends_a_incomplete_request()
+    {
+        // Given
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
+
+        $slack->setClient($service = Mockery::mock('\GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(422);
+        $response->shouldReceive('getBody')->andReturn(json_encode(['foo' => 'bar']));
+
+        $this->expectException(ValidationException::class);
+
+        $message = Kit::newMessage()->text('Hello');
+
+        // When
+        $slack->postMessage($message);
+    }
+
+    /** @test */
     public function it_should_throw_a_failed_action_exception_when_client_sends_a_bad_request()
     {
         // Given
@@ -125,57 +146,5 @@ class MessagesTest extends TestCase
 
         // When
         $slack->postMessage($message);
-    }
-
-    /** @test */
-    public function it_should_return_the_name_of_the_channel()
-    {
-        // Given
-        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['channel' => '#testing']]);
-
-        // When
-        $channel = $token->channel();
-
-        // Then
-        $this->assertEquals('#testing', $channel);
-    }
-
-    /** @test */
-    public function it_should_return_an_empty_string_when_the_channel_is_not_provided()
-    {
-        // Given
-        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['redirect' => 'https:/redirect.com']]);
-
-        // When
-        $channel = $token->channel();
-
-        // Then
-        $this->assertEquals('', $channel);
-    }
-
-    /** @test */
-    public function it_should_return_the_id_of_the_team()
-    {
-        // Given
-        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['channel' => '#testing'], 'team' => ['id' => 1]]);
-
-        // When
-        $team = $token->team();
-
-        // Then
-        $this->assertEquals(['id' => 1], $team);
-    }
-
-    /** @test */
-    public function it_should_return_an_empty_array_when_the_team_is_not_provided()
-    {
-        // Given
-        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['redirect' => 'https:/redirect.com']]);
-
-        // When
-        $team = $token->team();
-
-        // Then
-        $this->assertEquals([], $team);
     }
 }
