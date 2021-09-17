@@ -8,7 +8,7 @@ use TestMonitor\Slack\Provider\SlackProvider;
 class SlackProviderTest extends TestCase
 {
     /** @test */
-    public function it_should_instantiate_the_slackprovider()
+    public function it_can_instantiate_the_slack_provider()
     {
         // When
         $provider = new SlackProvider([
@@ -22,7 +22,7 @@ class SlackProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_could_instantiate_the_slackprovider_when_required_options_are_missing()
+    public function it_should_not_instantiate_the_slack_provider_when_required_options_are_missing()
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -47,7 +47,7 @@ class SlackProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_should_retrieve_the_base_authorization_url()
+    public function it_can_retrieve_the_base_authorization_url()
     {
         // When
         $provider = new SlackProvider([
