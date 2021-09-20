@@ -54,7 +54,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_an_unauthorized_exception_when_client_lacks_authorization_to_post_a_message()
+    public function it_should_throw_an_unauthorized_exception_when_client_lacks_authorization_to_post_a_message()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
@@ -74,7 +74,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_a_not_found_exception_when_client_cannot_reach_slack_to_post_a_message()
+    public function it_should_throw_a_not_found_exception_when_client_cannot_reach_slack_to_post_a_message()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
@@ -93,7 +93,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_a_validation_exception_when_client_sends_a_incomplete_request()
+    public function it_should_throw_a_validation_exception_when_client_sends_a_incomplete_request()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
@@ -113,7 +113,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_a_failed_action_exception_when_client_sends_a_bad_request()
+    public function it_should_throw_a_failed_action_exception_when_client_sends_a_bad_request()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
@@ -133,7 +133,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_can_throw_a_missing_webhook_exception_when_client_didnt_receive_a_webhook_to_post_a_message()
+    public function it_should_throw_a_missing_webhook_exception_when_client_didnt_receive_a_webhook_to_post_a_message()
     {
         // Given
         $token = new AccessToken('12345', '123456', time() + 3600);
