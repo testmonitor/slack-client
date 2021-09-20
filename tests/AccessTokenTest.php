@@ -8,7 +8,21 @@ use TestMonitor\Slack\AccessToken;
 class AccessTokenTest extends TestCase
 {
     /** @test */
-    public function it_should_return_the_name_of_the_channel()
+    public function it_can_return_the_access_token_as_an_array()
+    {
+        // Given
+        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['channel' => '#testing']]);
+
+        // When
+        $array = $token->toArray();
+
+        // Then
+        $this->assertIsArray($array);
+        $this->assertEquals([], $array);
+    }
+
+    /** @test */
+    public function it_can_return_the_name_of_the_channel()
     {
         // Given
         $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['channel' => '#testing']]);
@@ -34,19 +48,6 @@ class AccessTokenTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_an_empty_array_when_the_team_is_not_provided()
-    {
-        // Given
-        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['redirect' => 'https:/redirect.com']]);
-
-        // When
-        $team = $token->team();
-
-        // Then
-        $this->assertEquals([], $team);
-    }
-
-    /** @test */
     public function it_should_return_the_id_of_the_team()
     {
         // Given
@@ -57,5 +58,18 @@ class AccessTokenTest extends TestCase
 
         // Then
         $this->assertEquals(['id' => 1], $team);
+    }
+
+    /** @test */
+    public function it_should_return_an_empty_array_when_the_team_is_not_provided()
+    {
+        // Given
+        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['redirect' => 'https:/redirect.com']]);
+
+        // When
+        $team = $token->team();
+
+        // Then
+        $this->assertEquals([], $team);
     }
 }
