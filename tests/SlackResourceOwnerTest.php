@@ -88,7 +88,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
             ]);
 
         // When
@@ -117,7 +117,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
         ]);
 
         // When
@@ -145,7 +145,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
         ]);
 
         // When
@@ -173,7 +173,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
         ]);
 
         // When
@@ -201,7 +201,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
         ]);
 
         // When
@@ -229,7 +229,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
         ]);
 
         // When
@@ -257,7 +257,7 @@ class SlackResourceOwnerTest extends TestCase
             'image_192' => '',
 
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
         ]);
 
         // When
