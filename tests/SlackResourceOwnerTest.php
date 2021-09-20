@@ -48,7 +48,7 @@ class SlackResourceOwnerTest extends TestCase
     public function it_should_return_null_when_the_id_from_the_resource_owner_is_missing()
     {
         // Given
-        $resourceOwner = new SlackResourceOwner([]);
+        $resourceOwner = new SlackResourceOwner(['user' => []]);
 
         // When
         $response = $resourceOwner->getId();
@@ -74,7 +74,7 @@ class SlackResourceOwnerTest extends TestCase
     public function it_should_return_null_when_the_name_from_the_resource_owner_is_missing()
     {
         // Given
-        $resourceOwner = new SlackResourceOwner([]);
+        $resourceOwner = new SlackResourceOwner(['user' => []]);
 
         // When
         $response = $resourceOwner->getName();
@@ -100,7 +100,7 @@ class SlackResourceOwnerTest extends TestCase
     public function it_should_return_null_when_the_color_from_the_resource_owner_is_missing()
     {
         // Given
-        $resourceOwner = new SlackResourceOwner([]);
+        $resourceOwner = new SlackResourceOwner(['user' => []]);
 
         // When
         $response = $resourceOwner->getName();
