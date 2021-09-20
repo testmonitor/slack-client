@@ -86,10 +86,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-            ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getProfile();
@@ -115,10 +114,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-        ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getFirstName();
@@ -143,10 +141,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-        ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getLastName();
@@ -171,10 +168,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-        ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getSkype();
@@ -199,10 +195,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-        ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getEmail();
@@ -227,10 +222,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-        ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getPhone();
@@ -255,10 +249,9 @@ class SlackResourceOwnerTest extends TestCase
             'image_48' => '',
             'image_72' => '',
             'image_192' => '',
-
         ];
-        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile],
-        ]);
+
+        $resourceOwner = new SlackResourceOwner(['user' => ['profile' => $profile]]);
 
         // When
         $response = $resourceOwner->getImage24();
