@@ -11,14 +11,20 @@ class AccessTokenTest extends TestCase
     public function it_can_return_the_access_token_as_an_array()
     {
         // Given
-        $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['channel' => '#testing']]);
+        $time = time() + 3600;
+        $token = new AccessToken('12345', '123456', $time, ['incoming_webhook' => ['channel' => '#testing']]);
 
         // When
         $array = $token->toArray();
 
         // Then
         $this->assertIsArray($array);
-        $this->assertEquals([], $array);
+        $this->assertEquals([
+            'access_token' => '12345',
+            'refresh_token' => '123456',
+            'expires_in' => $time,
+            'values' => ['incoming_webhook' => ['channel' => '#testing']],
+        ], $array);
     }
 
     /** @test */

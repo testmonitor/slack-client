@@ -45,19 +45,6 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_null_when_the_id_from_the_resource_owner_is_missing()
-    {
-        // Given
-        $resourceOwner = new SlackResourceOwner(['user' => []]);
-
-        // When
-        $response = $resourceOwner->getId();
-
-        // Then
-        $this->assertNull($response);
-    }
-
-    /** @test */
     public function it_should_return_the_name_from_the_resource_owner()
     {
         // Given
@@ -71,19 +58,6 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_null_when_the_name_from_the_resource_owner_is_missing()
-    {
-        // Given
-        $resourceOwner = new SlackResourceOwner(['user' => []]);
-
-        // When
-        $response = $resourceOwner->getName();
-
-        // Then
-        $this->assertNull($response);
-    }
-
-    /** @test */
     public function it_should_return_the_color_from_the_resource_owner()
     {
         // Given
@@ -94,18 +68,5 @@ class SlackResourceOwnerTest extends TestCase
 
         // Then
         $this->assertEquals('#AABBCC', $response);
-    }
-
-    /** @test */
-    public function it_should_return_null_when_the_color_from_the_resource_owner_is_missing()
-    {
-        // Given
-        $resourceOwner = new SlackResourceOwner(['user' => []]);
-
-        // When
-        $response = $resourceOwner->getName();
-
-        // Then
-        $this->assertNull($response);
     }
 }
