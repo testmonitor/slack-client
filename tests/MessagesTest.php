@@ -93,6 +93,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
+
     public function it_can_throw_a_validation_exception_when_client_sends_a_incomplete_request()
     {
         // Given
@@ -132,7 +133,6 @@ class MessagesTest extends TestCase
         $slack->postMessage($message);
     }
 
-    /** @test */
     public function it_can_throw_a_missing_webhook_exception_when_client_didnt_receive_a_webhook_to_post_a_message()
     {
         // Given
