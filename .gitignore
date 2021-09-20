@@ -11,3 +11,6 @@ phpunit.xml
 /build
 
 /.idea
+
+test.php
+index.php
