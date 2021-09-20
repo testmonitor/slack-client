@@ -18,7 +18,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_full_context_of_the_resource_owner()
+    public function it_can_return_the_full_context_of_the_resource_owner()
     {
         // Given
         $resourceOwner = new SlackResourceOwner(['foo' => 'bar']);
@@ -32,7 +32,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_id_from_the_resource_owner()
+    public function it_can_return_the_id_from_the_resource_owner()
     {
         // Given
         $resourceOwner = new SlackResourceOwner(['user' => ['id' => 123]]);
@@ -45,7 +45,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_name_from_the_resource_owner()
+    public function it_can_return_the_name_from_the_resource_owner()
     {
         // Given
         $resourceOwner = new SlackResourceOwner(['user' => ['name' => 'John Doe']]);
@@ -58,7 +58,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_color_from_the_resource_owner()
+    public function it_can_return_the_color_from_the_resource_owner()
     {
         // Given
         $resourceOwner = new SlackResourceOwner(['user' => ['color' => '#AABBCC']]);
@@ -71,7 +71,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_profile_from_the_resource_owner()
+    public function it_can_return_the_profile_from_the_resource_owner()
     {
         // Given
         $profile = [
@@ -100,7 +100,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_first_name_from_the_resource_owner()
+    public function it_can_return_the_first_name_from_the_resource_owner()
     {
         // Given
         $profile = [
@@ -128,7 +128,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_last_name_from_the_resource_owner()
+    public function it_can_return_the_last_name_from_the_resource_owner()
     {
         // Given
         $profile = [
@@ -156,7 +156,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_skype_username_from_the_resource_owner()
+    public function it_can_return_the_skype_username_from_the_resource_owner()
     {
         // Given
         $profile = [
@@ -184,7 +184,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_email_from_the_resource_owner()
+    public function it_can_return_the_email_from_the_resource_owner()
     {
         // Given
         $profile = [
@@ -212,7 +212,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_phonenumber_from_the_resource_owner()
+    public function it_can_return_the_phonenumber_from_the_resource_owner()
     {
         // Given
         $profile = [
@@ -240,7 +240,7 @@ class SlackResourceOwnerTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_avatar_from_the_resource_owner()
+    public function it_can_return_the_avatar_from_the_resource_owner()
     {
         // Given
         $profile = [

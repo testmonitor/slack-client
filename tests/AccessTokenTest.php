@@ -41,7 +41,7 @@ class AccessTokenTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_an_empty_string_when_the_channel_is_not_provided()
+    public function it_can_return_an_empty_string_when_the_channel_is_not_provided()
     {
         // Given
         $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['redirect' => 'https:/redirect.com']]);
@@ -54,7 +54,7 @@ class AccessTokenTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_id_of_the_team()
+    public function it_can_return_the_id_of_the_team()
     {
         // Given
         $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['channel' => '#testing'], 'team' => ['id' => 1]]);
@@ -67,7 +67,7 @@ class AccessTokenTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_an_empty_array_when_the_team_is_not_provided()
+    public function it_can_return_an_empty_array_when_the_team_is_not_provided()
     {
         // Given
         $token = new AccessToken('12345', '123456', time() + 3600, ['incoming_webhook' => ['redirect' => 'https:/redirect.com']]);

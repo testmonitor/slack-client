@@ -60,7 +60,7 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function it_should_not_provide_a_client_with_an_expired_token()
+    public function it_can_not_provide_a_client_with_an_expired_token()
     {
         // Given
         $token = new AccessToken('12345', '67890', time() - 60, ['incoming_webhook' => ['channel' => '#testing']]);
@@ -147,7 +147,7 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function it_should_not_refresh_a_token_without_a_refresh_token()
+    public function it_can_not_refresh_a_token_without_a_refresh_token()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none']);
@@ -159,7 +159,7 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function it_should_not_provide_a_client_without_a_token()
+    public function it_can_not_provide_a_client_without_a_token()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none']);

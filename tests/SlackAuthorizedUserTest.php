@@ -26,7 +26,7 @@ class SlackAuthorizedUserTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_full_context_of_the_authorized_user()
+    public function it_can_return_the_full_context_of_the_authorized_user()
     {
         // Given
         $user = new SlackAuthorizedUser(['foo' => 'bar']);
@@ -40,7 +40,7 @@ class SlackAuthorizedUserTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_id_from_the_authorized_user()
+    public function it_can_return_the_id_from_the_authorized_user()
     {
         // Given
         $resourceOwner = new SlackAuthorizedUser($this->userData);
@@ -53,7 +53,7 @@ class SlackAuthorizedUserTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_team_id_from_the_authorized_user()
+    public function it_can_return_the_team_id_from_the_authorized_user()
     {
         // Given
         $resourceOwner = new SlackAuthorizedUser($this->userData);
@@ -66,7 +66,7 @@ class SlackAuthorizedUserTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_url_from_the_authorized_user()
+    public function it_can_return_the_url_from_the_authorized_user()
     {
         // Given
         $resourceOwner = new SlackAuthorizedUser($this->userData);
@@ -79,7 +79,7 @@ class SlackAuthorizedUserTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_user_from_the_authorized_user()
+    public function it_can_return_the_user_from_the_authorized_user()
     {
         // Given
         $resourceOwner = new SlackAuthorizedUser($this->userData);
@@ -92,7 +92,7 @@ class SlackAuthorizedUserTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_the_team_from_the_authorized_user()
+    public function it_can_return_the_team_from_the_authorized_user()
     {
         // Given
         $resourceOwner = new SlackAuthorizedUser($this->userData);
