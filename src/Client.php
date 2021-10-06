@@ -56,14 +56,16 @@ class Client
      * Create a new authorization URL for the given scope and state.
      *
      * @param string $state
+     * @param array $options
+     *
      * @return string
      */
-    public function authorizationUrl(string $state = '')
+    public function authorizationUrl(string $state = '', array $options = [])
     {
-        return $this->provider->getAuthorizationUrl([
+        return $this->provider->getAuthorizationUrl(array_merge([
             'scope' => 'incoming-webhook',
             'state' => $state,
-        ]);
+        ], $options));
     }
 
     /**
