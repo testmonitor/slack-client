@@ -57,7 +57,6 @@ class Client
      *
      * @param string $state
      * @param array $options
-     *
      * @return string
      */
     public function authorizationUrl(string $state = '', array $options = [])
