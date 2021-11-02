@@ -72,7 +72,7 @@ class AccessToken
      */
     public function canExpire()
     {
-        return !is_null($this->expiresIn);
+        return ! is_null($this->expiresIn);
     }
 
     /**
