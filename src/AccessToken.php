@@ -14,12 +14,12 @@ class AccessToken
     public $accessToken;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $refreshToken;
 
     /**
-     * @var int
+     * @var int|null
      */
     public $expiresIn;
 
@@ -32,14 +32,14 @@ class AccessToken
      * Token constructor.
      *
      * @param string $accessToken
-     * @param string $refreshToken
-     * @param int $expiresIn
+     * @param string|null $refreshToken
+     * @param int|null $expiresIn
      * @param array $values
      */
     public function __construct(
         string $accessToken = '',
-        string $refreshToken = '',
-        int $expiresIn = 0,
+        ?string $refreshToken = null,
+        ?int $expiresIn = null,
         array $values = []
     ) {
         $this->accessToken = $accessToken;
@@ -63,6 +63,16 @@ class AccessToken
                 $token->getValues()
             ),
         );
+    }
+
+    /**
+     * Determines if the access token can expire.
+     *
+     * @return bool
+     */
+    public function canExpire()
+    {
+        return !is_null($this->expiresIn);
     }
 
     /**

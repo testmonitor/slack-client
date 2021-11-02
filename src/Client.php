@@ -10,6 +10,7 @@ use TestMonitor\Slack\Exceptions\ValidationException;
 use TestMonitor\Slack\Exceptions\FailedActionException;
 use TestMonitor\Slack\Exceptions\TokenExpiredException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
+use TestMonitor\Slack\Exceptions\MissingRefreshTokenException;
 
 class Client
 {
@@ -90,15 +91,19 @@ class Client
     /**
      * Refresh the current access token.
      *
+     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException|\TestMonitor\Slack\Exceptions\MissingRefreshTokenException
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
-     * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException
-     *
      * @return \TestMonitor\Slack\AccessToken
+     *
      */
     public function refreshToken(): AccessToken
     {
         if (empty($this->token)) {
             throw new UnauthorizedException();
+        }
+
+        if (!$this->token->canExpire()) {
+            throw new MissingRefreshTokenException();
         }
 
         $token = $this->provider->getAccessToken('refresh_token', [
@@ -149,7 +154,7 @@ class Client
             throw new UnauthorizedException();
         }
 
-        if ($this->token->expired()) {
+        if ($this->token->canExpire() && $this->token->expired()) {
             throw new TokenExpiredException();
         }
 

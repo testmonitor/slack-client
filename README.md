@@ -83,7 +83,7 @@ When everything went ok, you should have an access token (available through Acce
 
 In case your Slack app is not configured for token rotation, you're all done now! 
 
-When token rotation has been enabled, your access token will be valid for **one hour**. After that, you'll have to refresh 
+When token rotation has been enabled, your access token will be valid for **twelve hours**. After that, you'll have to refresh 
 the token to regain access:
 
 ```php
@@ -97,7 +97,7 @@ if ($token->expired()) {
 }
 ```
 
-The new token will be valid again for the next hour. 
+The new token will be valid again for the next twelve hours. 
 
 ## Examples
 
