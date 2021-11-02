@@ -93,8 +93,8 @@ class Client
      *
      * @throws \League\OAuth2\Client\Provider\Exception\IdentityProviderException|\TestMonitor\Slack\Exceptions\MissingRefreshTokenException
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
-     * @return \TestMonitor\Slack\AccessToken
      *
+     * @return \TestMonitor\Slack\AccessToken
      */
     public function refreshToken(): AccessToken
     {
@@ -102,7 +102,7 @@ class Client
             throw new UnauthorizedException();
         }
 
-        if (!$this->token->canExpire()) {
+        if (! $this->token->canExpire()) {
             throw new MissingRefreshTokenException();
         }
 
