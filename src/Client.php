@@ -59,7 +59,6 @@ class Client
      * @param string $scope
      * @param string $state
      * @param array $options
-     *
      * @return string
      */
     public function authorizationUrl(string $scope, string $state = '', array $options = [])
