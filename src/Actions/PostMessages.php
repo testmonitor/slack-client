@@ -10,10 +10,10 @@ trait PostMessages
     /**
      * Post a new message.
      *
+     * @param string $webhookUrl
      * @param \SlackPhp\BlockKit\Surfaces\Message $message
      *
      * @throws \TestMonitor\Slack\Exceptions\FailedActionException
-     * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
      * @throws \TestMonitor\Slack\Exceptions\NotFoundException
      * @throws \TestMonitor\Slack\Exceptions\TokenExpiredException
      * @throws \TestMonitor\Slack\Exceptions\UnauthorizedException
@@ -22,13 +22,13 @@ trait PostMessages
      *
      * @return bool
      */
-    public function postMessage(Message $message)
+    public function postMessage(string $webhookUrl, Message $message)
     {
         if (empty($this->token)) {
             throw new UnauthorizedException();
         }
 
-        $response = $this->post($this->token->webhookUrl(), [
+        $response = $this->post($webhookUrl, [
             'json' => $message,
         ]);
 

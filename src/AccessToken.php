@@ -3,7 +3,6 @@
 namespace TestMonitor\Slack;
 
 use League\OAuth2\Client\Token\AccessTokenInterface;
-use TestMonitor\Slack\Exceptions\MissingWebhookException;
 use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
 
 class AccessToken
@@ -29,7 +28,7 @@ class AccessToken
     public $values;
 
     /**
-     * Token constructor.
+     * AccessToken constructor.
      *
      * @param string $accessToken
      * @param string|null $refreshToken
@@ -52,16 +51,13 @@ class AccessToken
      * @param \League\OAuth2\Client\Token\AccessToken $token
      * @return \TestMonitor\Slack\AccessToken
      */
-    public static function fromSlack(AccessTokenInterface $token, $values = [])
+    public static function fromSlack(AccessTokenInterface $token)
     {
         return new self(
             $token->getToken(),
             $token->getRefreshToken(),
             $token->getExpires(),
-            array_merge(
-                $values,
-                $token->getValues()
-            ),
+            $token->getValues()
         );
     }
 
@@ -83,56 +79,6 @@ class AccessToken
     public function expired()
     {
         return ($this->expiresIn - time()) < 60;
-    }
-
-    /**
-     * Returns the team id and name.
-     *
-     * @return array
-     */
-    public function team()
-    {
-        return $this->values['team'] ?? [];
-    }
-
-    /**
-     * Returns the incoming webhook data.
-     *
-     * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
-     *
-     * @return array
-     */
-    public function incomingWebhook()
-    {
-        if (empty($this->values['incoming_webhook'])) {
-            throw new MissingWebhookException();
-        }
-
-        return $this->values['incoming_webhook'];
-    }
-
-    /**
-     * Returns the channel name the webhook is assigned to.
-     *
-     * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
-     *
-     * @return string
-     */
-    public function channel()
-    {
-        return $this->incomingWebhook()['channel'] ?? '';
-    }
-
-    /**
-     * Returns the URL of the webhook.
-     *
-     * @throws \TestMonitor\Slack\Exceptions\MissingWebhookException
-     *
-     * @return string
-     */
-    public function webhookUrl()
-    {
-        return $this->incomingWebhook()['url'] ?? '';
     }
 
     /**

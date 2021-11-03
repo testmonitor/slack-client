@@ -11,7 +11,6 @@ use TestMonitor\Slack\Exceptions\NotFoundException;
 use TestMonitor\Slack\Exceptions\ValidationException;
 use TestMonitor\Slack\Exceptions\FailedActionException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
-use TestMonitor\Slack\Exceptions\MissingWebhookException;
 
 class MessagesTest extends TestCase
 {
@@ -47,7 +46,7 @@ class MessagesTest extends TestCase
         $message = Kit::newMessage()->text('Hello');
 
         // When
-        $result = $slack->postMessage($message);
+        $result = $slack->postMessage('https://slack.incoming.url/', $message);
 
         // Then
         $this->assertTrue($result);
@@ -70,7 +69,7 @@ class MessagesTest extends TestCase
         $message = Kit::newMessage()->text('Hello');
 
         // When
-        $slack->postMessage($message);
+        $slack->postMessage('https://slack.incoming.url/', $message);
     }
 
     /** @test */
@@ -89,7 +88,7 @@ class MessagesTest extends TestCase
         $message = Kit::newMessage()->text('Hello');
 
         // When
-        $slack->postMessage($message);
+        $slack->postMessage('https://slack.incoming.url/', $message);
     }
 
     /** @test */
@@ -109,7 +108,7 @@ class MessagesTest extends TestCase
         $message = Kit::newMessage()->text('Hello');
 
         // When
-        $slack->postMessage($message);
+        $slack->postMessage('https://slack.incoming.url/', $message);
     }
 
     /** @test */
@@ -129,22 +128,6 @@ class MessagesTest extends TestCase
         $message = Kit::newMessage()->text('Hello');
 
         // When
-        $slack->postMessage($message);
-    }
-
-    /** @test */
-    public function it_should_throw_a_missing_webhook_exception_when_client_didnt_receive_a_webhook_to_post_a_message()
-    {
-        // Given
-        $token = new AccessToken('12345', '123456', time() + 3600);
-
-        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $token);
-
-        $this->expectException(MissingWebhookException::class);
-
-        $message = Kit::newMessage()->text('Hello');
-
-        // When
-        $slack->postMessage($message);
+        $slack->postMessage('https://slack.incoming.url/', $message);
     }
 }

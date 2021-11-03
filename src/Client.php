@@ -56,14 +56,16 @@ class Client
     /**
      * Create a new authorization URL for the given scope and state.
      *
+     * @param string $scope
      * @param string $state
      * @param array $options
+     *
      * @return string
      */
-    public function authorizationUrl(string $state = '', array $options = [])
+    public function authorizationUrl(string $scope, string $state = '', array $options = [])
     {
         return $this->provider->getAuthorizationUrl(array_merge([
-            'scope' => 'incoming-webhook',
+            'scope' => $scope,
             'state' => $state,
         ], $options));
     }
@@ -110,7 +112,7 @@ class Client
             'refresh_token' => $this->token->refreshToken,
         ]);
 
-        $this->token = AccessToken::fromSlack($token, $this->token->values);
+        $this->token = AccessToken::fromSlack($token);
 
         return $this->token;
     }

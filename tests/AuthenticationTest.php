@@ -41,6 +41,18 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
+    public function it_can_create_a_token_without_a_refresh_token()
+    {
+        // When
+        $token = new AccessToken('12345');
+
+        // Then
+        $this->assertInstanceOf(AccessToken::class, $token);
+        $this->assertIsArray($token->toArray());
+        $this->assertFalse($token->canExpire());
+    }
+
+    /** @test */
     public function it_can_detect_an_expired_token()
     {
         // Given
@@ -72,7 +84,7 @@ class AuthenticationTest extends TestCase
         $this->expectException(TokenExpiredException::class);
 
         // When
-        $slack->postMessage($this->message);
+        $slack->postMessage('https://slack.incoming.url/', $this->message);
     }
 
     /** @test */
@@ -86,7 +98,7 @@ class AuthenticationTest extends TestCase
         $provider->shouldReceive('getAuthorizationUrl')->with($options)->andReturn('https://slack.authorization.url');
 
         // When
-        $url = $slack->authorizationUrl($options['state']);
+        $url = $slack->authorizationUrl($options['scope'], $options['state']);
 
         // Then
         $this->assertEquals('https://slack.authorization.url', $url);
@@ -167,7 +179,7 @@ class AuthenticationTest extends TestCase
         $this->expectException(UnauthorizedException::class);
 
         // When
-        $slack->postMessage($this->message);
+        $slack->postMessage('https://slack.incoming.url/', $this->message);
     }
 
     /** @test */

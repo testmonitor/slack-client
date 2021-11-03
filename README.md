@@ -8,7 +8,7 @@
 [![StyleCI](https://styleci.io/repos/401647581/shield)](https://styleci.io/repos/401647581)
 [![License](https://poser.pugx.org/testmonitor/slack-client/license)](https://packagist.org/packages/testmonitor/slack-client)
 
-This package provides a very basic, convenient, and unified wrapper for sending posts to Slack using an incoming webhook.
+This package provides a very basic, convenient, and unified wrapper for sending posts to Slack.
 Out of the box, it comes with:
 - Slack V2 OAuth 2.0 protocol for authentication (inspired by the [Slack Provider for OAuth 2.0 Client](https://github.com/adam-paterson/oauth2-slack)).
 - The [Slack Block Kit for PHP](https://github.com/slack-php/slack-php-block-kit), a library that provides an OOP interface in PHP for composing messages/modals. 
@@ -59,7 +59,7 @@ $oauth = [
 
 $slack = new \TestMonitor\Slack\Client($oauth);
 
-header('Location: ' . $slack->authorizationUrl('state'));
+header('Location: ' . $slack->authorizationUrl('incoming-webhook', 'state'));
 exit();
 ```
 
@@ -79,7 +79,31 @@ $slack = new \TestMonitor\Slack\Client($oauth);
 $token = $slack->fetchToken($_REQUEST['code']);
 ```
 
-When everything went ok, you should have an access token (available through AccessToken object). 
+When everything went ok, you should have an access token (available through AccessToken object). The AccessToken contains
+all the information you should need to post a message using a webhook:
+
+```php
+var_dump ($token->getValues());
+
+array() {
+    ["ok"] => true
+    ["app_id"] => "APPID"
+    ["authed_user"] => array(1) {}
+    ["scope"] => "incoming-webhook"
+    ["token_type"] => "bot"
+    ["bot_user_id"] => "USERID"
+    ["team"] => array(2) {}
+    ["enterprise"] => null
+    ["is_enterprise_install"] => false
+    ["incoming_webhook"] => array(4) {
+      ["channel"] => "#testmonitor"
+      ["channel_id"] => "CHANNELID"
+      ["configuration_url"] => "https://domain.slack.com/services/B123456USA"
+      ["url"] => "https://hooks.slack.com/services/T123456/B123456USA/tEsTm0n1t0r"
+    }
+```
+
+Make sure to save incoming webhook URL in your database, you'll need this later to post messages.
 
 In case your Slack app is not configured for token rotation, you're all done now! 
 
@@ -106,7 +130,7 @@ Post a simple message to Slack:
 ```php
 $message = Kit::newMessage()->text('Hello world!');
 
-$slack->postMessage($message);
+$slack->postMessage('https://webhook.url/', $message);
 ```
 
 Block Kit allows you to create way more comprehensive messages. Here's another example:
@@ -127,7 +151,7 @@ $message = Kit::newMessage()
             ->mrkdwnText('Resolution: *Unresolved*');
     })
 
-$slack->postMessage($message);
+$slack->postMessage('https://webhook.url/', $message);
 ```
 
 For more information on composing messages with Block Kit, head over to the [Slack Block Kit 
