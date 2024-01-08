@@ -91,7 +91,7 @@ class SlackProvider extends AbstractProvider
     {
         $params = [
             'token' => $token->getToken(),
-            'user'  => $this->getAuthorizedUser($token)->getId(),
+            'user' => $this->getAuthorizedUser($token)->getId(),
         ];
 
         return 'https://slack.com/api/users.info?' . http_build_query($params);
