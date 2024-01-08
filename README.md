@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/testmonitor/slack-client/v/stable)](https://packagist.org/packages/testmonitor/slack-client)
 [![CircleCI](https://img.shields.io/circleci/project/github/testmonitor/slack-client.svg)](https://circleci.com/gh/testmonitor/slack-client)
-[![Travis Build](https://travis-ci.com/testmonitor/slack-client.svg?branch=main)](https://travis-ci.com/testmonitor/slack-client)
+[![Travis Build](https://travis-ci.com/testmonitor/slack-client.svg?branch=main)](https://app.travis-ci.com/github/slack-client)
 [![Code Coverage](https://scrutinizer-ci.com/g/testmonitor/slack-client/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/testmonitor/slack-client/?branch=main)
 [![Code Quality](https://scrutinizer-ci.com/g/testmonitor/slack-client/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/testmonitor/slack-client/?branch=main)
 [![StyleCI](https://styleci.io/repos/401647581/shield)](https://styleci.io/repos/401647581)
@@ -11,7 +11,7 @@
 This package provides a very basic, convenient, and unified wrapper for sending posts to Slack.
 Out of the box, it comes with:
 - Slack V2 OAuth 2.0 protocol for authentication (inspired by the [Slack Provider for OAuth 2.0 Client](https://github.com/adam-paterson/oauth2-slack)).
-- The [Slack Block Kit for PHP](https://github.com/slack-php/slack-php-block-kit), a library that provides an OOP interface in PHP for composing messages/modals. 
+- The [Slack Block Kit for PHP](https://github.com/slack-php/slack-php-block-kit), a library that provides an OOP interface in PHP for composing messages/modals.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ Out of the box, it comes with:
 - [Contributing](#contributing)
 - [Credits](#credits)
 - [License](#license)
-  
+
 ## Installation
 
 To install the client you need to require the package using composer:
@@ -105,9 +105,9 @@ array() {
 
 Make sure to save incoming webhook URL in your database, you'll need this later to post messages.
 
-In case your Slack app is not configured for token rotation, you're all done now! 
+In case your Slack app is not configured for token rotation, you're all done now!
 
-When token rotation has been enabled, your access token will be valid for **twelve hours**. After that, you'll have to refresh 
+When token rotation has been enabled, your access token will be valid for **twelve hours**. After that, you'll have to refresh
 the token to regain access:
 
 ```php
@@ -121,7 +121,7 @@ if ($token->expired()) {
 }
 ```
 
-The new token will be valid again for the next twelve hours. 
+The new token will be valid again for the next twelve hours.
 
 ## Examples
 
@@ -154,7 +154,7 @@ $message = Kit::newMessage()
 $slack->postMessage('https://webhook.url/', $message);
 ```
 
-For more information on composing messages with Block Kit, head over to the [Slack Block Kit 
+For more information on composing messages with Block Kit, head over to the [Slack Block Kit
 for PHP documentation](https://github.com/slack-php/slack-php-block-kit) or refer to the
 official [Slack Block Kit documentation](https://api.slack.com/block-kit).
 
@@ -163,7 +163,7 @@ official [Slack Block Kit documentation](https://api.slack.com/block-kit).
 The package contains integration tests. You can run them using PHPUnit.
 
     $ vendor/bin/phpunit
-    
+
 ## Changelog
 
 Refer to [CHANGELOG](CHANGELOG.md) for more information.
