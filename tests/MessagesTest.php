@@ -113,7 +113,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_should_return_a_list_of_validation_exception_when_its_throwd()
+    public function it_should_return_a_list_of_validation_errors_when_posting_an_invalid_message()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
