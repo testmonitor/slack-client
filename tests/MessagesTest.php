@@ -3,6 +3,7 @@
 namespace TestMonitor\Slack\Tests;
 
 use Mockery;
+use Exception;
 use SlackPhp\BlockKit\Kit;
 use TestMonitor\Slack\Client;
 use PHPUnit\Framework\TestCase;
@@ -112,6 +113,30 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
+    public function it_should_return_a_list_of_validation_exception_when_its_throwd()
+    {
+        // Given
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
+
+        $slack->setClient($service = Mockery::mock('\GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(422);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['foo' => 'bar'])));
+
+        $message = Kit::newMessage()->text('Hello');
+
+        // When
+        try {
+            $slack->postMessage('https://slack.incoming.url/', $message);
+        } catch(ValidationException $e) {
+            $this->assertIsArray($e->errors());
+            $this->arrayHasKey('foo', $e->errors());
+            $this->assertEquals(['foo' => 'bar'], $e->errors());
+        }
+    }
+
+    /** @test */
     public function it_should_throw_a_failed_action_exception_when_client_sends_a_bad_request()
     {
         // Given
@@ -124,6 +149,26 @@ class MessagesTest extends TestCase
         $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(''));
 
         $this->expectException(FailedActionException::class);
+
+        $message = Kit::newMessage()->text('Hello');
+
+        // When
+        $slack->postMessage('https://slack.incoming.url/', $message);
+    }
+
+    /** @test */
+    public function it_should_throw_a_fallback_exception_when_slack_becomes_a_teapot()
+    {
+        // Given
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);
+
+        $slack->setClient($service = Mockery::mock('\GuzzleHttp\Client'));
+
+        $service->shouldReceive('request')->once()->andReturn($response = Mockery::mock('Psr\Http\Message\ResponseInterface'));
+        $response->shouldReceive('getStatusCode')->andReturn(418);
+        $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(''));
+
+        $this->expectException(Exception::class);
 
         $message = Kit::newMessage()->text('Hello');
 
