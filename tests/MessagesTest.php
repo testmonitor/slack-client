@@ -157,7 +157,7 @@ class MessagesTest extends TestCase
     }
 
     /** @test */
-    public function it_should_throw_a_fallback_exception_when_slack_becomes_a_teapot()
+    public function it_should_throw_a_general_exception_when_slack_becomes_a_teapot()
     {
         // Given
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $this->token);

@@ -172,7 +172,7 @@ class AuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function it_can_not_refresh_a_token_when_the_token_can_not_expire()
+    public function it_cannot_refresh_a_token_when_the_refresh_token_is_missing()
     {
         // Given
         $oldToken = new AccessToken('12345', '567890');
