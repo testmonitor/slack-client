@@ -10,6 +10,7 @@ use TestMonitor\Slack\AccessToken;
 use TestMonitor\Slack\Provider\SlackAuthorizedUser;
 use TestMonitor\Slack\Exceptions\TokenExpiredException;
 use TestMonitor\Slack\Exceptions\UnauthorizedException;
+use TestMonitor\Slack\Exceptions\MissingRefreshTokenException;
 
 class AuthenticationTest extends TestCase
 {
@@ -165,6 +166,20 @@ class AuthenticationTest extends TestCase
         $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none']);
 
         $this->expectException(UnauthorizedException::class);
+
+        // When
+        $slack->refreshToken();
+    }
+
+    /** @test */
+    public function it_cannot_refresh_a_token_when_the_refresh_token_is_missing()
+    {
+        // Given
+        $oldToken = new AccessToken('12345', '567890');
+
+        $slack = new Client(['clientId' => 1, 'clientSecret' => 'secret', 'redirectUri' => 'none'], $oldToken, $provider = Mockery::mock('\TestMonitor\Slack\Provider\SlackProvider'));
+
+        $this->expectException(MissingRefreshTokenException::class);
 
         // When
         $slack->refreshToken();
