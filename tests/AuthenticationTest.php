@@ -21,7 +21,7 @@ class AuthenticationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->message = Kit::newMessage()->text('testing');
+        $this->message = Kit::message()->text('testing');
     }
 
     public function tearDown(): void
