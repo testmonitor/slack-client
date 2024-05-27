@@ -44,7 +44,7 @@ class MessagesTest extends TestCase
         $response->shouldReceive('getStatusCode')->andReturn(200);
         $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor('ok'));
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         $result = $slack->postMessage('https://slack.incoming.url/', $message);
@@ -67,7 +67,7 @@ class MessagesTest extends TestCase
 
         $this->expectException(UnauthorizedException::class);
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         $slack->postMessage('https://slack.incoming.url/', $message);
@@ -86,7 +86,7 @@ class MessagesTest extends TestCase
 
         $this->expectException(NotFoundException::class);
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         $slack->postMessage('https://slack.incoming.url/', $message);
@@ -106,7 +106,7 @@ class MessagesTest extends TestCase
 
         $this->expectException(ValidationException::class);
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         $slack->postMessage('https://slack.incoming.url/', $message);
@@ -124,7 +124,7 @@ class MessagesTest extends TestCase
         $response->shouldReceive('getStatusCode')->andReturn(422);
         $response->shouldReceive('getBody')->andReturn(\GuzzleHttp\Psr7\Utils::streamFor(json_encode(['foo' => 'bar'])));
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         try {
@@ -150,7 +150,7 @@ class MessagesTest extends TestCase
 
         $this->expectException(FailedActionException::class);
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         $slack->postMessage('https://slack.incoming.url/', $message);
@@ -170,7 +170,7 @@ class MessagesTest extends TestCase
 
         $this->expectException(Exception::class);
 
-        $message = Kit::newMessage()->text('Hello');
+        $message = Kit::message()->text('Hello');
 
         // When
         $slack->postMessage('https://slack.incoming.url/', $message);
