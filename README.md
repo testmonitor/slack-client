@@ -2,10 +2,8 @@
 
 [![Latest Stable Version](https://poser.pugx.org/testmonitor/slack-client/v/stable)](https://packagist.org/packages/testmonitor/slack-client)
 [![CircleCI](https://img.shields.io/circleci/project/github/testmonitor/slack-client.svg)](https://circleci.com/gh/testmonitor/slack-client)
-[![Travis Build](https://travis-ci.com/testmonitor/slack-client.svg?branch=main)](https://app.travis-ci.com/github/slack-client)
-[![Code Coverage](https://scrutinizer-ci.com/g/testmonitor/slack-client/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/testmonitor/slack-client/?branch=main)
-[![Code Quality](https://scrutinizer-ci.com/g/testmonitor/slack-client/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/testmonitor/slack-client/?branch=main)
 [![StyleCI](https://styleci.io/repos/401647581/shield)](https://styleci.io/repos/401647581)
+[![codecov](https://codecov.io/gh/testmonitor/slack-client/graph/badge.svg?token=6Z5QIYSQ6R)](https://codecov.io/gh/testmonitor/slack-client)
 [![License](https://poser.pugx.org/testmonitor/slack-client/license)](https://packagist.org/packages/testmonitor/slack-client)
 
 This package provides a very basic, convenient, and unified wrapper for sending posts to Slack.
