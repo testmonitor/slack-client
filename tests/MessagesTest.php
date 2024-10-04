@@ -129,7 +129,7 @@ class MessagesTest extends TestCase
         // When
         try {
             $slack->postMessage('https://slack.incoming.url/', $message);
-        } catch(ValidationException $e) {
+        } catch (ValidationException $e) {
             $this->assertIsArray($e->errors());
             $this->arrayHasKey('foo', $e->errors());
             $this->assertEquals(['foo' => 'bar'], $e->errors());
